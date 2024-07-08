@@ -1,6 +1,9 @@
 import { Header } from "@/components/Header";
+import { setupAPIClient } from "@/services/api";
+import { canSSRAuth } from "@/utils/canSSRAuth";
 import Head from "next/head";
 import { FormEvent, useState } from "react";
+import { toast } from "react-toastify";
 import styles from "./styles.module.css";
 
 export default function Category() {
@@ -8,6 +11,18 @@ export default function Category() {
 
   async function handleRegister(e: FormEvent) {
     e.preventDefault();
+
+    if (name === "") {
+      return;
+    }
+
+    const apiClient = setupAPIClient();
+    await apiClient.post("/category", {
+      name: name,
+    });
+
+    toast.success("Categoria cadastrada com sucesso!");
+    setName("");
   }
 
   return (
@@ -38,3 +53,10 @@ export default function Category() {
     </>
   );
 }
+
+// Aqui indica que só usuarios logados podem acessar
+export const getServerSideProps = canSSRAuth(async (ctx) => {
+  return {
+    props: {},
+  };
+});

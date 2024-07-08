@@ -16,6 +16,7 @@ export default function Dashboard() {
   );
 }
 
+// Aqui indica que só usuarios logados podem acessar
 export const getServerSideProps = canSSRAuth(async (ctx) => {
   return {
     props: {},
