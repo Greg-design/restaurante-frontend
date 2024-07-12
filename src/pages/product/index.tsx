@@ -149,7 +149,8 @@ export default function Product({ categoryList }: CategoryProps) {
   );
 }
 
-// Aqui indica que só usuarios logados podem acessar
+// Aqui é a parte do server side, passa primeiro por aqui
+// canSSRAuth indica que só usuarios logados podem acessar
 export const getServerSideProps = canSSRAuth(async (ctx) => {
   const apiClient = setupAPIClient(ctx);
 

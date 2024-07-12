@@ -54,7 +54,8 @@ export default function Category() {
   );
 }
 
-// Aqui indica que só usuarios logados podem acessar
+// Aqui é a parte do server side, passa primeiro por aqui
+// canSSRAuth indica que só usuarios logados podem acessar
 export const getServerSideProps = canSSRAuth(async (ctx) => {
   return {
     props: {},
